@@ -9,6 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
+ /**
+ * ViewModel containing the app data and methods to process the data
+ * */
 class GameViewModel: ViewModel() {
 
     private val _score = MutableLiveData(0)
@@ -36,6 +39,7 @@ class GameViewModel: ViewModel() {
     val currentWordCount: LiveData<Int>
         get() = _currentWordCount
 
+     // List of words used in the game
     private var wordsList: MutableList<String> = mutableListOf()
     private lateinit var currentWord: String
 
@@ -64,10 +68,17 @@ class GameViewModel: ViewModel() {
         }
     }
 
+     /*
+    * Increases the game score if the player’s word is correct.
+    */
     private fun increaseScore() {
         _score.value = _score.value?.plus(SCORE_INCREASE)
     }
 
+     /*
+    * Returns true if the player word is correct.
+    * Increases the score accordingly.
+    */
     fun isUserWordCorrect(playerWord: String): Boolean {
         if (playerWord.equals(currentWord, true)) {
             increaseScore()
